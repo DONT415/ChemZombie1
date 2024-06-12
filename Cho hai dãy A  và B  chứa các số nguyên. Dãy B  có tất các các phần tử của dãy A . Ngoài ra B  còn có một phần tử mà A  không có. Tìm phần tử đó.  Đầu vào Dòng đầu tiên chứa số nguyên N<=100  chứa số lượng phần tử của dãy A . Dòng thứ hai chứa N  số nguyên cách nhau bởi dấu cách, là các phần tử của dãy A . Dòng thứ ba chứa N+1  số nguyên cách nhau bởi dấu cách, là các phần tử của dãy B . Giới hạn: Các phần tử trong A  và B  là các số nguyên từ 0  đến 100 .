@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+
+    int sumA = 0;
+    for (int i = 0; i < N; ++i) {
+        int num;
+        cin >> num;
+        sumA += num;
+    }
+
+    int sumB = 0;
+    for (int i = 0; i < N + 1; ++i) {
+        int num;
+        cin >> num;
+        sumB += num;
+    }
+
+    int missingElement = sumB - sumA;
+    cout << missingElement << endl;
+
+    return 0;
+}
