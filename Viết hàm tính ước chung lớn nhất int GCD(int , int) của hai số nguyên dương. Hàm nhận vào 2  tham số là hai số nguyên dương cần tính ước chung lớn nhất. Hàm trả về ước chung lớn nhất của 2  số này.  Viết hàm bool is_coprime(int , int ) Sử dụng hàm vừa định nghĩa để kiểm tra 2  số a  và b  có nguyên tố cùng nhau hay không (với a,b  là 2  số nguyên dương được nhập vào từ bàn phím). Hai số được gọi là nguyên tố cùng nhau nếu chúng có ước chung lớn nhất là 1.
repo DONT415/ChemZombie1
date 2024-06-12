@@ -1,0 +1,14 @@
+int GCD(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+bool is_coprime(int a, int b) {
+    return GCD(a, b) == 1;
+}
+
+
