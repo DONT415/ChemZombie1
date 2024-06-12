@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void sieveOfEratosthenes(int N) {
+    // Tạo một vector để lưu trữ trạng thái của các số nguyên từ 2 đến N
+    vector<bool> isPrime(N + 1, true);
+
+    // Bắt đầu từ số 2 (số nguyên tố đầu tiên)
+    for (int i = 2; i * i <= N; ++i) {
+        // Nếu i là số nguyên tố
+        if (isPrime[i]) {
+            // Đánh dấu tất cả các bội số của i là không phải số nguyên tố
+            for (int j = i * i; j <= N; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+
+    // In ra tất cả các số nguyên tố từ 2 đến N
+    for (int i = 2; i <= N; ++i) {
+        if (isPrime[i]) {
+            cout << i << " ";
+        }
+    }
+}
+
+int main() {
+    int N;
+
+    cin >> N;
+    sieveOfEratosthenes(N);
+
+    return 0;
+}
