@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Hàm kiểm tra xem từ có chứa các chữ cái khác nhau hay không
+bool hasUniqueCharacters(const string& word) {
+    vector<bool> seen(26, false); // Sử dụng vector để đánh dấu các ký tự đã xuất hiện
+
+    for (char c : word) {
+        if (seen[c - 'a']) { // Nếu ký tự đã xuất hiện trước đó
+            return false; // Trả về false, tức là từ không chứa các ký tự duy nhất
+        }
+        seen[c - 'a'] = true; // Đánh dấu ký tự đã xuất hiện
+    }
+
+    return true; // Trả về true, tức là từ chứa các ký tự duy nhất
+}
+
+// Hàm sinh và in ra tất cả các từ có độ dài K và chứa các chữ cái khác nhau từ 'a' đến 'N'
+void generateWords(int N, int K) {
+    string word(K, 'a'); // Khởi tạo từ với K ký tự 'a'
+
+    // Duyệt qua tất cả các từ có thể tạo ra
+    while (true) {
+        if (hasUniqueCharacters(word)) { // Nếu từ có chứa các chữ cái khác nhau
+            cout << word << endl; // In từ ra màn hình
+
+            // Tăng từ lên theo thứ tự từ điển
+            int pos = K - 1;
+            while (pos >= 0 && word[pos] == 'a' + N - 1) {
+                --pos;
+            }
+            if (pos < 0) { // Nếu không thể tăng thêm nữa
+                break; // Dừng vòng lặp
+            }
+            ++word[pos]; // Tăng ký tự cuối cùng có thể tăng được
+            for (int i = pos + 1; i < K; ++i) {
+                word[i] = 'a'; // Đặt các ký tự phía sau bằng 'a'
+            }
+        } else { // Nếu từ không chứa các chữ cái khác nhau
+            // Tăng từ lên theo thứ tự từ điển
+            int pos = K - 1;
+            while (pos >= 0 && word[pos] == 'a' + N - 1) {
+                --pos;
+            }
+            if (pos < 0) { // Nếu không thể tăng thêm nữa
+                break; // Dừng vòng lặp
+            }
+            ++word[pos]; // Tăng ký tự cuối cùng có thể tăng được
+            for (int i = pos + 1; i < K; ++i) {
+                word[i] = 'a'; // Đặt các ký tự phía sau bằng 'a'
+            }
+        }
+    }
+}
+
+int main() {
+    int N, K;
+
+    cin >> N >> K;
+
+    generateWords(N, K);
+
+    return 0;
+}
