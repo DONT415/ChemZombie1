@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+class Complex {
+private:
+    double a;
+    double b; 
+
+public:
+    Complex(double real = 0, double imag = 0) : a(real), b(imag) {}
+
+    Complex operator+(const Complex& f) const {
+        return Complex(a + f.a, b + f.b);
+    }
+
+    Complex operator-(const Complex& f) const {
+        return Complex(a - f.a, b - f.b);
+    }
+
+    Complex operator*(const Complex& f) const {
+        return Complex(a * f.a - b * f.b, a * f.b + b * f.a);
+    }
+
+    Complex operator/(const Complex& f) const {
+        double denominator = f.a * f.a + f.b * f.b;
+        return Complex((a * f.a + b * f.b) / denominator, (b * f.a - a * f.b) / denominator);
+    }
+
+    double modulus() const {
+        return std::sqrt(a * a + b * b);
+    }
+
+    bool operator==(const Complex& f) const {
+        return a == f.a && b == f.b;
+    }
+
+    bool operator!=(const Complex& f) const {
+        return !(*this == f);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Complex& f) {
+        if (f.a != 0) {
+            os << f.a;
+        }
+        if (f.b != 0) {
+            if (f.b > 0 && f.a != 0) {
+                os << "+";
+            }
+            if (f.b == 1) {
+                os << "i";
+            } else if (f.b == -1) {
+                os << "-i";
+            } else {
+                os << f.b << "i";
+            }
+        }
+        if (f.a == 0 && f.b == 0) {
+            os << "0";
+        }
+        return os;
+    }
+};
