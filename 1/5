@@ -1,0 +1,14 @@
+void printReverse(Node* head, int k) {
+    if (head == nullptr || k <= 0) {
+        return;
+    }
+    
+    if (k == 1) {
+        // Đã duyệt tới nút cần in
+        std::cout << head->value;
+    } else {
+        // Duyệt đến nút thứ k và sau đó in ngược lại
+        printReverse(head->next, k - 1);
+        std::cout << " " << head->value;
+    }
+}
