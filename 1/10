@@ -1,0 +1,47 @@
+#include <iomanip>
+#include <string>
+#include <iostream>
+struct Student  {
+    // your code goes here
+    // Cac bien thanh vien
+    string name;
+    float gpa;
+    // your code goes here
+    // Hai ham khoi tao
+    Student (const string name) : name(name),gpa (0.0){}
+    Student (const std::string name,float gpa ) : name(name),gpa(gpa){}
+    string grade() {
+        // your code goes here
+        if(gpa>=3.6){
+            return "xuat sac";
+        }else if (3.2<= gpa && gpa>3.6){
+            return "gioi";
+        }else if (2.5<= gpa && gpa <3.2) {
+            return "kha";
+        }else{
+            return "khong du dieu kien";
+        }
+    }
+    
+    void print() {
+        // your code goes here
+         cout << name << " " <<fixed<< setprecision(1)<<  gpa << " " << grade() << endl;
+    }
+};
+
+Student get(int n) {
+    // your code goes here
+    string name;
+    float gpa;
+    
+    Student best_student(name,gpa);
+    
+    for (int i=1;i<n;i++) {
+        cin >> name >> gpa;
+        if (gpa > best_student.gpa) {
+            best_student = Student(name, gpa);
+        }
+    }
+    
+    return  best_student;
+}
