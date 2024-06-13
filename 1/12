@@ -1,0 +1,71 @@
+#include <iostream>
+#include <cmath>
+
+class Fraction {
+private:
+    int a; 
+    int b; 
+
+public:
+
+    Fraction(int a = 1, int b = 1) : a(a), b(b) {}
+
+
+    Fraction operator+(const Fraction& f) const {
+        return Fraction(a * f.b + f.a * b, b * f.b);
+    }
+
+    Fraction operator-(const Fraction& f) const {
+        return Fraction(a * f.b - f.a * b, b * f.b);
+    }
+
+    Fraction operator*(const Fraction& f) const {
+        return Fraction(a * f.a, b * f.b);
+    }
+
+
+    Fraction operator/(const Fraction& f) const {
+        if (f.a == 0) {
+            return Fraction();
+        }
+        return Fraction(a * f.b, b * f.a);
+    }
+
+
+    void simplify() {
+        if (b == 0) return; 
+
+        int gcd_value = std::__gcd(std::abs(a), std::abs(b)); 
+        a /= gcd_value;
+        b /= gcd_value;
+
+        if (b < 0) {
+            a = -a;
+            b = -b;
+        }
+    }
+
+    bool operator>(const Fraction& f) const {
+        return a * f.b > f.a * b;
+    }
+
+    bool operator<(const Fraction& f) const {
+        return a * f.b < f.a * b;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Fraction& f) {
+        if (f.b == 0) {
+            os << "invalid";
+        } else {
+            Fraction temp = f;
+            temp.simplify(); 
+
+            if (temp.b == 1) {
+                os << temp.a;
+            } else {
+                os << temp.a << "/" << temp.b;
+            }
+        }
+        return os;
+    }
+};
