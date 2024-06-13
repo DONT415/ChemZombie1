@@ -1,0 +1,29 @@
+Node* deleteSingle(Node* head) {
+    // Xử lý trường hợp danh sách rỗng hoặc chỉ có 1 phần tử
+    if (head == nullptr || head->next == nullptr) {
+        return head;
+    }
+    
+    Node *dummy = new Node;  // Tạo node giả để tránh xử lý đặc biệt cho node đầu
+    dummy->next = head;
+    
+    Node *prev = dummy;
+    Node *current = head;
+    
+    while (current != nullptr && current->next != nullptr) {
+        if (current->value != prev->value && current->value != current->next->value) {
+            // current là node cô đơn, xoá nó
+            prev->next = current->next;
+            delete current;
+            current = prev->next;  // Chuyển sang node tiếp theo
+        } else {
+            prev = current;
+            current = current->next;
+        }
+    }
+    
+    Node *newHead = dummy->next;
+    delete dummy;
+    
+    return newHead;
+}
