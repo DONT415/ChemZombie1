@@ -1,0 +1,51 @@
+int countNodes(Node* head) {
+    int count = 0;
+    Node* current = head;
+    while (current != nullptr) {
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+
+// Hàm in ra k giá trị cuối cùng của danh sách liên kết
+void printLast(Node* head, int k) {
+    // Đếm số lượng nút trong danh sách liên kết
+    int size = 0;
+    Node* current = head;
+    while (current != nullptr) {
+        size++;
+        current = current->next;
+    }
+    
+    // Xử lý các trường hợp đặc biệt
+    if (k <= 0 || size == 0) {
+        return; // Không có gì để in ra
+    }
+    if (k >= size) {
+        // In toàn bộ danh sách
+        current = head;
+        while (current != nullptr) {
+            std::cout << current->value;
+            if (current->next != nullptr) {
+                std::cout << " ";
+            }
+            current = current->next;
+        }
+    } else {
+        // Duyệt đến vị trí bắt đầu in
+        current = head;
+        for (int i = 0; i < size - k; ++i) {
+            current = current->next;
+        }
+        
+        // In các giá trị từ vị trí bắt đầu in đến cuối danh sách
+        while (current != nullptr) {
+            std::cout << current->value;
+            if (current->next != nullptr) {
+                std::cout << " ";
+            }
+            current = current->next;
+        }
+    }
+}
